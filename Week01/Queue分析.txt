@@ -1,0 +1,26 @@
+接口声明：
+public interface Queue<E> extends Collection<E>
+继承接口：
+Collection<E>
+泛型类型：
+E(Element)
+
+FIFO：first in first out 先进先出
+
+声明方法：
+boolean add(E e);//插入元素，失败返回异常
+
+boolean offer(E e);//插入元素，失败返回false
+
+E remove();//删除头元素，列表为空，返回异常
+
+E poll();//获取头元素，且删除头元素，列表为空，返回null
+
+E element();//获取头元素，且不删除，如果队列为空，返回异常信息
+
+E peek();//获取头元素，且不删除，如果队列为空，返回null
+
+建议：
+1.插入元素时，调用offer(E e)方法，不会返回异常
+2.删除头元素时，调用poll()方法，不会返回异常
+3.获取头元素时，调用peek()方法，不会返回异常信息

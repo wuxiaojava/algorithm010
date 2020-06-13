@@ -1,0 +1,90 @@
+类声明：
+public class PriorityQueue<E> extends AbstractQueue<E>
+    implements java.io.Serializable
+
+继承类：AbstractQueue<E>
+
+实现接口：Serializable
+
+属性：
+private static final int DEFAULT_INITIAL_CAPACITY = 11;//默认队列的容量大小
+private static final int MAX_ARRAY_SIZE = Integer.MAX_VALUE - 8;//默认数组最大长度
+
+private int size = 0;//默认队列的长度
+private final Comparator<? super E> comparator;//优化队列用到的比较器
+
+//内部类使用到的属性，不参与序列化操作
+transient Object[] queue;
+transient int modCount = 0;
+
+构造方法：
+public PriorityQueue();//无参构造方法
+public PriorityQueue(int initialCapacity);//指定容量的构造方法
+public PriorityQueue(Comparator<? super E> comparator);//指定比较器的构造方法
+public PriorityQueue(int initialCapacity,Comparator<? super E> comparator);//指定容量和比较器的构造方法
+
+//传入不同的数据结构，生成优化队列的构造方法
+public PriorityQueue(Collection<? extends E> c)；//使用传入的集合构造优化队列
+public PriorityQueue(PriorityQueue<? extends E> c)；//使用传入的优化队列构造优化队列（拷贝？)
+public PriorityQueue(SortedSet<? extends E> c)；//使用有序Set构造优化队列
+
+方法：
+内部使用方法：
+private void initFromPriorityQueue(PriorityQueue<? extends E> c);//根据传入的优化队列，生成新的优化队列
+private void initElementsFromCollection(Collection<? extends E> c);//从传入的集合中，初始化优化队列的元素
+private void initFromCollection(Collection<? extends E> c)；//根据传入的集合，生成新的优化队列
+
+//包含扩容算法
+    private void grow(int minCapacity);//扩大队列容量
+    private static int hugeCapacity(int minCapacity);
+
+//实现Queue相关的方法
+public boolean add(E e);
+    public boolean offer(E e);
+public E peek();
+public boolean remove(Object o);
+
+//扩展方法
+boolean removeEq(Object o)
+
+//私有方法
+private int indexOf(Object o);
+private E removeAt(int i)；·
+private void heapify();
+
+//集合方法
+public boolean contains(Object o);
+public Object[] toArray();
+public <T> T[] toArray(T[] a);
+public int size();
+public void clear();
+public E poll();
+public Comparator<? super E> comparator();
+
+//迭代方法
+public Iterator<E> iterator()；//串行迭代
+public final Spliterator<E> spliterator();//并行迭代
+
+//二叉堆算法
+private void siftUp(int k, E x)；
+private void siftUpComparable(int k, E x);
+private void siftUpUsingComparator(int k, E x);
+private void siftDown(int k, E x);
+private void siftDownComparable(int k, E x);
+private void siftDownUsingComparator(int k, E x)
+
+
+private void heapify();
+
+//序列化相关方法
+private void writeObject(java.io.ObjectOutputStream s);
+private void readObject(java.io.ObjectInputStream s)
+        throws java.io.IOException, ClassNotFoundException;
+
+内部类：
+private final class Itr implements Iterator<E>；//串行迭代 获取迭代器
+static final class PriorityQueueSpliterator<E> implements Spliterator<E>;//并行迭代  获取迭代器
+
+
+知识点：
+关键字：transient  将不需要序列化的属性前添加该关键字
